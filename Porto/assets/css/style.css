@@ -178,7 +178,6 @@ h1, h2, h3, h4, h5, h6 {
 .book-a-table-btn {
   margin: 0 0 0 15px;
   border: 2px solid #cda45e;
-  
   color: #fff;
   border-radius: 50px;
   padding: 8px 25px;
@@ -1200,7 +1199,6 @@ section {
   background-color: black;
 }
 
-
 .btn1 {
   position: block;
   display: inline-block;
@@ -1287,8 +1285,6 @@ section {
 .button-container {
   display: flex;
 
-  
-
 }
 
 
@@ -1314,4 +1310,32 @@ section {
 
 .member .btn3:hover {
   background-color: black;
+}
+
+* Profile Picture */
+.profile-pic{
+   display: inline-block;
+   vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+   border-radius: 50%;
+}
+
+.profile-pic img{
+   width: 100%;
+   height: auto;
+   object-fit: cover;
+}
+.profile-menu .dropdown-menu {
+  right: 0;
+  left: unset;
+}
+.profile-menu .fa-fw {
+  margin-right: 10px;
+}
+
+.toggle-change::after {
+  border-top: 0;
+  border-bottom: 0.3em solid;
 }

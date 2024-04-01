@@ -1,0 +1,217 @@
+
+
+<!-- Chefs Section -->
+<section id="chefs" class="chefs">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Chefs</h2>
+        <p>Our Proffesional Chefs</p>
+      </div>
+ 
+      <div class="row">
+ 
+        <div class="col-lg-4 col-md-6">
+         
+          <div class="member" data-aos="zoom-in" data-aos-delay="100"> 
+            <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt=""> 
+          
+            <div class="member-info">
+              <div class="member-info-content">
+                <h4>Damir Tomljanović</h4>
+                <span>Master Chef</span>
+              </div>
+            </div>
+          </div> 
+        </div>
+ 
+        <div class="col-lg-4 col-md-6">
+          <div class="member" data-aos="zoom-in" data-aos-delay="200">
+            <img src="assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
+            
+            <div class="member-info">
+              <div class="member-info-content">
+                <h4>Sarah Lepic</h4>
+                <span>Patissier</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="member" data-aos="zoom-in" data-aos-delay="300">
+            <img src="assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
+            <div class="member-info">
+              <div class="member-info-content">
+                <h4>Melkior Bašić</h4>
+                <span>Cook</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <style>
+      /* Stilovi za izgled tabele*/
+      table {
+          width: 100%;
+          border-collapse: collapse;
+      }
+      th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+      }
+      tr:hover {
+          background-color: #f2f2f2;
+      }
+  </style>
+  </head>
+  <body>
+  
+  <div class="form-outline mb-4">
+      <input type="text" class="form-control" id="datatable-search-input" onkeyup="searchTable()" placeholder="Search chefs...">
+      <label class="form-label" for="datatable-search-input">
+      </label>
+  </div>
+  
+  <table id="datatable">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Speciality</th>
+              <th>Selected</th>
+          </tr>
+      </thead>
+      <tbody id="chef-data">
+          <!-- Chefs data will be inserted here dynamically -->
+      </tbody>
+  </table>
+
+  <div class="horizontalgap" style ="height:40px"></div> <!--for horizontal space-->
+
+  <button onclick="showForm()">Add chefs</button>
+  <button onclick="deleteSelected()" id="delete-selected">Delete selected</button>
+
+  <div class="horizontalgap" style ="height:40px"></div> <!--for horizontal space-->
+  
+  <div id="form-overlay" class="overlay">
+      <div class="form-container">
+          <h3>Add new chefs</h3>
+          <label for="new-chef-name">Name:</label>
+          <input type="text" id="new-chef-name"><br><br>
+          <label for="new-chef-lastname">Surname:</label>
+          <input type="text" id="new-chef-surname"><br><br>
+          <label for="new-chef-speciality">Speciality:</label>
+          <input type="text" id="new-chef-speciality"><br><br>
+          <button onclick="addChef()">Add chefs</button>
+          <button onclick="hideForm()">Cancel</button>
+      </div>
+  </div>
+  
+  <script>
+  function searchTable() {
+      // Implementacija funkcije za pretragu tabele
+      // ...
+      var input = document.getElementById("datatable-search-input");
+    var filter = input.value.toUpperCase();
+    
+    // Preuzimanje tabele
+    var table = document.getElementById("datatable");
+    var rows = table.getElementsByTagName("tr");
+    
+    // Prolazak kroz sve redove tabele i sakrivanje onih koji se ne podudaraju sa pretragom
+    for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        var found = false;
+        for (var j = 0; j < cells.length; j++) {
+            var cell = cells[j];
+            if (cell) {
+                var txtValue = cell.textContent || cell.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (found) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+  }
+
+  let chefs=localStorage.getItem("chefs")
+  
+  function showForm() {
+      document.getElementById("form-overlay").style.display = "block";
+  }
+  
+  function hideForm() {
+      document.getElementById("form-overlay").style.display = "none";
+  }
+  
+  function addChef() {
+      var name = document.getElementById("new-chef-name").value;
+      var lastname = document.getElementById("new-chef-lastname").value;
+      if (name && lastname) {
+          // This is where you would make an AJAX call to save the new chef to your server-side database
+          // For demonstration purposes, let's just log the new chef's name and lastname
+          console.log("Added chef:", name, lastname);
+          hideForm();
+      } else {
+          alert("Molimo unesite ime i prezime kuhara.");
+      }
+  }
+  
+  function deleteSelected() {
+    // Implementacija funkcije za brisanje selektovanih redova
+    // ...
+  //  $("#delete-selected").on("click", function() {
+    $("#datatable input:checkbox").each(function() {
+            if (this.checked) {
+                $(this).parent().parent().remove();
+            }
+        });
+  //  });
+};
+
+ // Fetch chefs data
+/*window.onload = function() {
+    fetch('chefs.json')
+        .then(response => response.json())
+        .then(chefs => {
+            displayChefs(chefs);
+        });
+};*/
+
+$.ajax({
+    type: "GET",
+    url: "data/chefs.json",
+    dataType: "json",
+    success: function(data) {
+      displayChefs(data);
+      localStorage.setItem("chefs", data)
+    },
+    error: function(){
+        alert("json not found");
+    }
+});
+
+function displayChefs(chefs) {
+  const table = document.getElementById('chef-data');
+  chefs.forEach(chef => {
+      const newRow = table.insertRow();
+      newRow.innerHTML = `<td>${chef.name}</td><td>${chef.surname}</td><td>${chef.speciality}</td><td><input type='checkbox'></td>`;
+  });
+}
+</script>
+
+</body>
+  
+  </section><!-- End Chefs Section -->
