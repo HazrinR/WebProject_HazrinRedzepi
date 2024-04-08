@@ -1,0 +1,26 @@
+[
+    {   "id": 1,
+        "name": "Damir",
+        "surname": "Tomljanović",
+        "speciality": "Master Chef"
+       
+    },
+    {   "id": 2,
+        "name": "Sarah",
+        "surname": "Lepić",
+        "speciality": "Patissier"
+       
+    },
+    {
+        "id": 3,
+        "name": "Melkior",
+        "surname": "Bašić",
+        "speciality": "Cook"
+    },
+    {
+        "id": 4,
+        "name": "Lejla",
+        "surname": "Ramić",
+        "speciality": "Chef"
+    }
+]
